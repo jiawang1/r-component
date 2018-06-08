@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import invariant from 'invariant';
 
 class AsyncScope extends React.Component {
   constructor(props) {
@@ -9,7 +8,9 @@ class AsyncScope extends React.Component {
   }
 
   render() {
-    invariant(false, 'AsyncScope is obsoleted, Provider can support Asynchronize loading');
+    if (console) {
+      console.error(false, 'AsyncScope is obsoleted, Provider can support Asynchronize loading');
+    }
     return this.props.children;
   }
 }

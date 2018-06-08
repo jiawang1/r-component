@@ -5,8 +5,7 @@
   "main": "./src/index.js",
   "module": "dist/blurb.min.js",
   "scripts": {
-    "build": "node ./script/build.js",
-    "storybook": "start-storybook -p 9001 -c ./storybook"
+    "build": "node ./script/build.js"
   },
   "keywords": [
     "react",

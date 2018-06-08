@@ -30,10 +30,6 @@ module.exports = {
         use: 'babel-loader'
       },
       {
-        test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-        use: 'file-loader'
-      },
-      {
         test: /\.css$/,
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
@@ -50,14 +46,14 @@ module.exports = {
         })
       },
       {
-        test: /\.(png|jpg|gif)$/,
-        use: 'url-loader?limit=8192'
+        test: /\.(png|jpg|gif|ttf|eot|sv)$/,
+        use: 'file-loader'
       }
     ]
   },
   plugins: [
     new webpack.optimize.ModuleConcatenationPlugin(),
-    new ExtractTextPlugin({ filename: '[name].style.[contenthash:8].css' }),
+    new ExtractTextPlugin({ filename: `${process.env.npm_package_name}.css` }),
     new webpack.optimize.AggressiveMergingPlugin(),
     new webpack.DefinePlugin({
       ENV: '"production"',
