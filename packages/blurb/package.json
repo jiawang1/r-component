@@ -1,11 +1,12 @@
 {
-  "name": "blurb",
+  "name": "ui-blurb",
   "version": "1.0.0",
   "description": "react component for rendering i18n information",
   "main": "./src/index.js",
   "module": "dist/blurb.min.js",
   "scripts": {
-    "build": "node ./script/build.js"
+    "build": "node ./script/build.js",
+    "start":"start-storybook -p 9001 -c ./storybook"
   },
   "keywords": [
     "react",

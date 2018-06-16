@@ -1,14 +1,15 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { BlurbProvider, Blurb } from 'blurb';
+import { BlurbProvider } from './BlurbProvider';
+import Blurb from './Blurb';
 
 /* eslint-disable react/no-multi-comp */
 
-const mockAsync = data =>
+const makeQueryBlurb = blurbs => ids =>
   new Promise(res => {
     setTimeout(() => {
-      res(data);
-    }, 3000);
+      res(blurbs.filter(blurb => ids.indexOf(blurb.id.slice(6)) >= 0));
+    }, 500);
   });
 
 storiesOf('Blurb', module)
@@ -36,14 +37,6 @@ storiesOf('Blurb', module)
         translation: 'SWITCH TEXT BY PROPS'
       }
     ];
-
-    const queryBlurb = ids =>
-      new Promise(res => {
-        setTimeout(() => {
-          res(blurbs.filter(blurb => ids.indexOf(blurb.id.slice(6)) >= 0));
-        }, 0);
-      });
-
     let count1 = 0;
     let count2 = 0;
     class TestContext extends React.Component {
@@ -108,19 +101,25 @@ storiesOf('Blurb', module)
     class Wrapper extends React.Component {
       constructor() {
         super();
+        this.unmount = false;
         this.state = { r: false };
       }
       componentDidMount() {
         setTimeout(() => {
-          this.setState({
-            r: true
-          });
+          if (!this.unmount) {
+            this.setState({
+              r: true
+            });
+          }
         }, 3000);
+      }
+      componentWillUnmount() {
+        this.unmount = true;
       }
       render() {
         return (
           <div>
-            <BlurbProvider queryBlurb={queryBlurb}>
+            <BlurbProvider queryBlurb={makeQueryBlurb(blurbs)}>
               <TestContext render={this.state.r} />
             </BlurbProvider>
           </div>
@@ -150,9 +149,8 @@ storiesOf('Blurb', module)
       }
     ];
 
-    const __queryBlurb = ids => blurbs.filter(blurb => ids.some(id => id === blurb.id.slice(6)));
     const TestContext = () => (
-      <BlurbProvider queryBlurb={ids => mockAsync(__queryBlurb(ids))}>
+      <BlurbProvider queryBlurb={makeQueryBlurb(blurbs)}>
         <div>
           <Blurb blurbID="10293">
             <span style={{ color: 'red' }} blurbkey="test1">
@@ -177,7 +175,7 @@ storiesOf('Blurb', module)
       }
     ];
     const TestContext = () => (
-      <BlurbProvider queryBlurb={() => Promise.resolve(blurbs)}>
+      <BlurbProvider queryBlurb={makeQueryBlurb(blurbs)}>
         <div>
           <Blurb blurbID="93847">p1</Blurb>
         </div>
@@ -202,17 +200,8 @@ storiesOf('Blurb', module)
       }
     ];
 
-    const queryBlurb = ids => {
-      console.log('query blurb is called');
-      return new Promise(res => {
-        setTimeout(() => {
-          res(blurbs.filter(blurb => ids.indexOf(blurb.id.slice(6)) >= 0));
-        }, 0);
-      });
-    };
-
     const TestContext = () => (
-      <BlurbProvider queryBlurb={queryBlurb}>
+      <BlurbProvider queryBlurb={makeQueryBlurb(blurbs)}>
         <div>
           <Blurb blurbID="poiuy">
             <span style={{ color: 'red' }} blurbkey="test1">
@@ -229,14 +218,6 @@ storiesOf('Blurb', module)
     return <TestContext />;
   })
   .add('nested component with Blurb', () => {
-    const TestBlurb = () => (
-      <div>
-        <span>get blurb</span>
-        <Blurb blurbID="zxc">
-          <Blurb blurbID="mnb" />
-        </Blurb>
-      </div>
-    );
     const blurbs = [
       {
         id: 'blurb!123456',
@@ -247,10 +228,6 @@ storiesOf('Blurb', module)
         translation: 'Text also from outer blurB'
       },
       {
-        id: 'blurb!qaz',
-        translation: 'Another blurb && only XXXXX case'
-      },
-      {
         id: 'blurb!zxc',
         translation: 'Text from inner component, replacement is : ^cc^'
       },
@@ -259,17 +236,16 @@ storiesOf('Blurb', module)
         translation: 'Text also from inner2 '
       }
     ];
-
-    const queryBlurb = ids => {
-      console.log('query blurb is called');
-      return new Promise(res => {
-        setTimeout(() => {
-          res(blurbs.filter(blurb => ids.indexOf(blurb.id.slice(6)) >= 0));
-        }, 0);
-      });
-    };
+    const TestBlurb = () => (
+      <div>
+        <span>get blurb : </span>
+        <Blurb blurbID="zxc">
+          <Blurb blurbID="mnb" />
+        </Blurb>
+      </div>
+    );
     const TestContext = () => (
-      <BlurbProvider queryBlurb={queryBlurb}>
+      <BlurbProvider queryBlurb={makeQueryBlurb(blurbs)}>
         <div>
           <Blurb blurbID="123456">
             <span style={{ color: 'red' }} blurbkey="test1">
@@ -292,7 +268,7 @@ storiesOf('Blurb', module)
       }
     ];
     const TestContext = () => (
-      <BlurbProvider queryBlurb={() => Promise.resolve(blurbs)}>
+      <BlurbProvider queryBlurb={makeQueryBlurb(blurbs)}>
         <div>
           <Blurb blurbID="12345" placeHolder="(?:\@([^@]+)\@)">
             <span style={{ color: 'red' }} blurbkey="test1">
@@ -313,7 +289,7 @@ storiesOf('Blurb', module)
       }
     ];
     const TestContext = () => (
-      <BlurbProvider queryBlurb={() => Promise.resolve(blurbs)}>
+      <BlurbProvider queryBlurb={makeQueryBlurb(blurbs)}>
         <div>support number</div>
         <div>
           <Blurb blurbID="1234568">{100}</Blurb>
