@@ -21,7 +21,7 @@ Basecally, you should import BlurbProvider component and put it in the root of y
         <span blurbKey="someone">Tom</span>
         <span blurbKey="someclasses">online ENglish training</span>
       </Blurb>
-```code
+```
 
 ## updating Blurb
 
@@ -33,13 +33,13 @@ Current Blurb component instance is bound to blurbID, this means one instance ca
     }else{
       <Blurb BlurbID="B12345" />
     }
-```code
+```
 
 for this case, if state is changed, React will not create another Blurb instance but try to reuse the same one and reassign the blurbID props. Then you will see error remind in console:
 
 ```code
 blurbID can not be changed, please add key props for blurb with id A12345 and B12345
-```code
+```
 
 you can supply prop key to Blurb component to tell React these two Blurb is not the same.
 
@@ -49,4 +49,4 @@ you can supply prop key to Blurb component to tell React these two Blurb is not 
     }else{
       <Blurb BlurbID="B12345" key="B12345"/>
     }
-```code
+```
