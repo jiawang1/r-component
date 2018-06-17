@@ -88,9 +88,9 @@ class InnerBlurb extends React.Component {
   }
   removeBlurbkey(element) {
     const { props } = element;
-    const { blurbkey, ...__props } = props;
+    const { blurbKey, ...__props } = props;
 
-    return blurbkey && element.ref === null && element.type !== Blurb
+    return blurbKey && element.ref === null && element.type !== Blurb
       ? React.createElement(element.type, __props)
       : element;
   }
@@ -154,11 +154,11 @@ class InnerBlurb extends React.Component {
           const oReplacement = React.Children.toArray(children).reduce((obj, current) => {
             const { props } = current;
             invariant(
-              React.isValidElement(current) && props.blurbkey,
-              'multiple children must be react element with blurbkey props'
+              React.isValidElement(current) && props.blurbKey,
+              'multiple children must be react element with blurbKey props'
             );
             const __replacement = this.removeBlurbkey(current);
-            obj[current.props.blurbkey] = __replacement; // eslint-disable-line
+            obj[current.props.blurbKey] = __replacement; // eslint-disable-line
             return obj;
           }, {});
 
@@ -195,6 +195,7 @@ class InnerBlurb extends React.Component {
 InnerBlurb.propTypes = {
   blurbID: PropTypes.string.isRequired,
   children: PropTypes.node,
+  blurbKey: PropTypes.string,
   placeHolder: PropTypes.string,
   consumerBlurb: PropTypes.shape({
     getBlurbByID: PropTypes.func.isRequired,
@@ -206,6 +207,7 @@ InnerBlurb.propTypes = {
 InnerBlurb.defaultProps = {
   children: [],
   placeHolder: null,
+  blurbKey: null,
   finishedCb: null
 };
 

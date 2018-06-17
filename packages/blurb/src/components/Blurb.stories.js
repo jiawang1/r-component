@@ -73,10 +73,10 @@ storiesOf('Blurb', module)
                   <div>
                     <p>the first part:</p>
                     <Blurb blurbID="123456">
-                      <span style={{ color: 'red' }} blurbkey="test1">
+                      <span style={{ color: 'red' }} blurbKey="test1">
                         P1
                       </span>
-                      <span style={{ color: 'blue' }} blurbkey="test2">
+                      <span style={{ color: 'blue' }} blurbKey="test2">
                         P2
                       </span>
                     </Blurb>
@@ -153,11 +153,11 @@ storiesOf('Blurb', module)
       <BlurbProvider queryBlurb={makeQueryBlurb(blurbs)}>
         <div>
           <Blurb blurbID="10293">
-            <span style={{ color: 'red' }} blurbkey="test1">
+            <span style={{ color: 'red' }} blurbKey="test1">
               P1
             </span>
-            <Blurb blurbID="9876" blurbkey="test2" />
-            <Blurb blurbID="qaz" blurbkey="test3">
+            <Blurb blurbID="9876" blurbKey="test2" />
+            <Blurb blurbID="qaz" blurbKey="test3">
               <Blurb style={{ color: 'red' }} blurbID="67890" />
             </Blurb>
           </Blurb>
@@ -204,10 +204,10 @@ storiesOf('Blurb', module)
       <BlurbProvider queryBlurb={makeQueryBlurb(blurbs)}>
         <div>
           <Blurb blurbID="poiuy">
-            <span style={{ color: 'red' }} blurbkey="test1">
+            <span style={{ color: 'red' }} blurbKey="test1">
               P1
             </span>
-            <span style={{ color: 'blue' }} blurbkey="test2">
+            <span style={{ color: 'blue' }} blurbKey="test2">
               P2
             </span>
           </Blurb>
@@ -248,10 +248,10 @@ storiesOf('Blurb', module)
       <BlurbProvider queryBlurb={makeQueryBlurb(blurbs)}>
         <div>
           <Blurb blurbID="123456">
-            <span style={{ color: 'red' }} blurbkey="test1">
+            <span style={{ color: 'red' }} blurbKey="test1">
               outter blurb
             </span>
-            <Blurb blurbID="9876" blurbkey="test2" />
+            <Blurb blurbID="9876" blurbKey="test2" />
           </Blurb>
           <TestBlurb />
         </div>
@@ -271,7 +271,7 @@ storiesOf('Blurb', module)
       <BlurbProvider queryBlurb={makeQueryBlurb(blurbs)}>
         <div>
           <Blurb blurbID="12345" placeHolder="(?:\@([^@]+)\@)">
-            <span style={{ color: 'red' }} blurbkey="test1">
+            <span style={{ color: 'red' }} blurbKey="test1">
               P1
             </span>
           </Blurb>
