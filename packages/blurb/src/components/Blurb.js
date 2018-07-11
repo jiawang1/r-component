@@ -113,6 +113,7 @@ class InnerBlurb extends React.Component {
   }
 
   render() {
+    // blurbKey here used to remove this prop from blurbProps
     const {
       blurbID,
       children,
@@ -229,8 +230,8 @@ InnerBlurb.propTypes = {
 InnerBlurb.defaultProps = {
   children: [],
   placeHolder: null,
-  blurbKey: undefined,
   finishedCb: null,
+  blurbKey: undefined,
   render: null
 };
 
