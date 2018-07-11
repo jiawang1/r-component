@@ -105,13 +105,13 @@ storiesOf('Blurb', module)
         this.state = { r: false };
       }
       componentDidMount() {
-        setTimeout(() => {
-          if (!this.unmount) {
-            this.setState({
-              r: true
-            });
-          }
-        }, 3000);
+        // setTimeout(() => {
+        //   if (!this.unmount) {
+        //     this.setState({
+        //       r: true
+        //     });
+        //   }
+        // }, 3000);
       }
       componentWillUnmount() {
         this.unmount = true;
@@ -294,6 +294,22 @@ storiesOf('Blurb', module)
         <div>
           <Blurb blurbID="1234568">{100}</Blurb>
         </div>
+        <div />
+      </BlurbProvider>
+    );
+    return <TestContext />;
+  })
+  .add('verify attributes', () => {
+    const blurbs = [
+      {
+        id: 'blurb!1234568',
+        translation: 'alternative text for image'
+      }
+    ];
+    const TestContext = () => (
+      <BlurbProvider queryBlurb={makeQueryBlurb(blurbs)}>
+        <div>verify blurb for attribuet</div>
+        <Blurb blurbID="1234568" render={blurb => <img alt={blurb} />} />
         <div />
       </BlurbProvider>
     );

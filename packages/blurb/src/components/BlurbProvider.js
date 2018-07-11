@@ -76,21 +76,33 @@ class BlurbProvider extends React.Component {
 
     this.scheduled = false;
 
+    const findBlurbMapperByID = id => this.blurbs.find(__b => __b.id === id.slice(6));
+
     if (newIDs.length > 0) {
       this.flyingIDs = [...this.flyingIDs, ...newIDs];
-      return queryBlurb(newIDs).then(__blurbs => {
-        __blurbs.forEach(__blurb => {
-          const blurbWrapper = this.blurbs.find(__b => __b.id === __blurb.id.slice(6));
-          blurbWrapper.isNew = false;
-          const blurb = {
-            id: __blurb.id.slice(6),
-            translation: __blurb.translation
-          };
-          blurbWrapper.value = blurb;
-          blurbWrapper.success(blurb);
-          this.flyingIDs.splice(this.flyingIDs.findIndex(id => id === __blurb.id), 1);
+      return queryBlurb(newIDs)
+        .then(__blurbs => {
+          __blurbs.forEach(__blurb => {
+            const blurbWrapper = findBlurbMapperByID(__blurb.id);
+            blurbWrapper.isNew = false;
+            const blurb = {
+              id: __blurb.id.slice(6),
+              translation: __blurb.translation
+            };
+            blurbWrapper.value = blurb;
+            blurbWrapper.success(blurb);
+            this.flyingIDs.splice(this.flyingIDs.findIndex(id => id === __blurb.id), 1);
+          });
+        })
+        .catch(error => {
+          console.error(error); // eslint-disable-line
+          newIDs.forEach(__id => {
+            const blurbWrapper = findBlurbMapperByID(__id);
+            if (blurbWrapper) {
+              blurbWrapper.failed(error);
+            }
+          });
         });
-      });
     }
     return Promise.resolve([]);
   }

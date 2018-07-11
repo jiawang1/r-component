@@ -46,8 +46,13 @@ class InnerBlurb extends React.Component {
     if (blurb) {
       return;
     }
-    const { consumerBlurb, blurbID, children } = this.props;
+    const { consumerBlurb, blurbID, children, render } = this.props;
     const ids = [blurbID];
+
+    invariant(
+      typeof render !== 'function' || React.Children.count(children) === 0,
+      `render blurb to attribute can not support blurb replacement now`
+    );
 
     /**
      * if the children has Blurb, collect all blurbIDs recursively here to
@@ -94,9 +99,10 @@ class InnerBlurb extends React.Component {
       ? React.createElement(element.type, __props)
       : element;
   }
-  isValidBlurbProp(prop) {
+  withValidateBlurbProps(prop) {
     return typeof prop === 'object' && prop !== null && Object.keys(prop).length > 0;
   }
+
   collectBlurbID(children, ids) {
     React.Children.toArray(children)
       .filter(ele => ele.type === Blurb)
@@ -107,10 +113,22 @@ class InnerBlurb extends React.Component {
   }
 
   render() {
-    const { blurbID, children, consumerBlurb, placeHolder, finishedCb, ...blurbProps } = this.props;
-    const needWrapper = this.isValidBlurbProp(blurbProps);
+    const {
+      blurbID,
+      children,
+      consumerBlurb,
+      placeHolder,
+      finishedCb,
+      render,
+      blurbKey,
+      ...blurbProps
+    } = this.props;
+    const needWrapper = this.withValidateBlurbProps(blurbProps);
 
     if (this.state.blurb) {
+      if (render) {
+        return render(this.state.blurb.translation);
+      }
       const childCount = React.Children.count(children);
       const __placeHolder = placeHolder ? new RegExp(placeHolder, 'g') : defaultPlaceHolder;
       if (childCount > 0) {
@@ -136,6 +154,9 @@ class InnerBlurb extends React.Component {
           }
           const contents = translation.split(placeHolderInText[0]);
 
+          /**
+           * one child maybe replace multiple holder, so still use map
+           */
           const results = contents.map((cont, inx) => {
             if (inx === contents.length - 1) {
               return cont;
@@ -197,6 +218,7 @@ InnerBlurb.propTypes = {
   children: PropTypes.node,
   blurbKey: PropTypes.string,
   placeHolder: PropTypes.string,
+  render: PropTypes.func,
   consumerBlurb: PropTypes.shape({
     getBlurbByID: PropTypes.func.isRequired,
     updateBlurb: PropTypes.func
@@ -207,8 +229,9 @@ InnerBlurb.propTypes = {
 InnerBlurb.defaultProps = {
   children: [],
   placeHolder: null,
-  blurbKey: null,
-  finishedCb: null
+  blurbKey: undefined,
+  finishedCb: null,
+  render: null
 };
 
 export default Blurb;

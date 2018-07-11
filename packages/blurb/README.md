@@ -4,6 +4,18 @@ this component can render text asynchromized, so could be used to resolve i18n r
 
 ## Quick Start
 
+## feature
+
+- support nestted blurd
+```code
+      <Blurb blurbID="qaz" blurbKey="test3">
+        <Blurb style={{ color: 'red' }} blurbID="67890" />
+      </Blurb>
+```
+- supprot render to attribute, this case can not support blurb patameters in current version
+```code 
+ <Blurb blurbID="1234568" render={blurb => <img alt={blurb} />} />
+```
 ## API
 
 Basecally, you should import BlurbProvider component and put it in the root of your "page". And then you can use Blurb component to render text.
