@@ -1,0 +1,32 @@
+.p-body-frame {
+  background-color: #ffffff;
+  overflow: hidden;
+  border: 1px solid #dddddd;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.p-body {
+  table-layout: fixed;
+  position: relative;
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  color: #333333;
+}
+
+.p-body tr:hover {
+  background-color: #e8eff6;
+}
+
+.p-body-col {
+  border-right: 1px solid #dddddd;
+  border-bottom: 1px solid #dddddd;
+  text-align: left;
+  padding: 7px;
+  vertical-align: middle;
+  box-sizing: border-box;
+}

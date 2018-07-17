@@ -1,0 +1,18 @@
+.p-selection-col {
+  width: 2rem;
+  text-align: center;
+  border-right: 1px solid #dddddd;
+  border-bottom: 1px solid #dddddd;
+}
+
+.p-selection-header {
+  width: 2rem;
+  text-align: center;
+  vertical-align: middle;
+  border-right: 1px solid #dddddd;
+}
+
+.p-selection-col .p-checkbox,
+.p-selection-header .p-checkbox {
+  display: inline-block;
+}

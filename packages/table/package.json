@@ -1,0 +1,37 @@
+{
+  "name": "phoenix-table",
+  "version": "1.0.0",
+  "description": "react based table component ",
+  "main": "./src/index.js",
+  "module": "dist/table.min.js",
+  "scripts": {
+    "build": "node ./script/build.js",
+    "start": "start-storybook -p 9001 -c ./storybook"
+  },
+  "keywords": [
+    "react",
+    "component",
+    "table"
+  ],
+  "peerDependencies": {
+    "react": ">=16.0.0",
+    "react-dom": ">=16.0.0"
+  },
+  "dependencies": {
+    "invariant": "^2.2.4",
+    "prop-types": "^15.6.1",
+    "webpack": "^4.4.1"
+  },
+  "devDependencies": {
+    "@storybook/react": "4.0.0-alpha.3",
+    "mocha": "5.2.0",
+    "prettier": "1.13.0",
+    "eslint": "4.19.1"
+  },
+  "files": [
+    "/dist/**",
+    "/es/**"
+  ],
+  "author": "Jia Wang",
+  "license": "MIT"
+}
