@@ -16,3 +16,78 @@
 .p-selection-header .p-checkbox {
   display: inline-block;
 }
+
+/*
+  table header part
+*/
+
+.p-header-frame {
+  background-color: #ffffff;
+  overflow: hidden;
+  border-top: 1px solid #dddddd;
+  border-left: 1px solid #dddddd;
+}
+
+.p-header {
+  table-layout: fixed;
+  position: relative;
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background-color: #f7f7f7;
+  color: #333333;
+}
+
+.p-header-col {
+  border-right: 1px solid #dddddd;
+  padding: 7px;
+  box-sizing: border-box;
+  background-color: #f7f7f7;
+  color: #333333;
+  font-weight: normal;
+}
+
+.p-header-col:hover {
+  background-color: #e8e8e8;
+  color: #333333;
+}
+
+/*
+  table body part
+*/
+
+.p-body-frame {
+  background-color: #ffffff;
+  overflow: hidden;
+  border: 1px solid #dddddd;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.p-body {
+  table-layout: fixed;
+  position: relative;
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  color: #333333;
+}
+
+.p-body tr:hover {
+  background-color: #e8eff6;
+}
+
+.p-body-col {
+  border-right: 1px solid #dddddd;
+  border-bottom: 1px solid #dddddd;
+  text-align: left;
+  padding: 7px;
+  vertical-align: middle;
+  box-sizing: border-box;
+}
