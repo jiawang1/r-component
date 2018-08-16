@@ -1,3 +1,29 @@
+th {
+  font-weight: normal;
+  border: none;
+  box-sizing: border-box;
+}
+
+.table-frame {
+  position: relative;
+  overflow: auto;
+}
+
+.table-col-rsz {
+  position: absolute;
+  top: 0;
+  width: 5px;
+  cursor: col-resize;
+  z-index: 100;
+  box-sizing: border-box;
+  height: 100%;
+}
+
+.table-col-rsz:hover {
+  background-color: #427cac;
+  opacity: 0.5;
+}
+
 .p-selection-col {
   width: 2rem;
   text-align: center;
@@ -23,7 +49,6 @@
 
 .p-header-frame {
   background-color: #ffffff;
-  overflow: hidden;
   border-top: 1px solid #dddddd;
   border-left: 1px solid #dddddd;
 }
@@ -59,10 +84,17 @@
   table body part
 */
 
+.p-body-header-sel {
+  border: none;
+}
+
+.p-body-header-sel>th {
+  border: none;
+}
+
 .p-body-frame {
   background-color: #ffffff;
-  overflow: hidden;
-  border: 1px solid #dddddd;
+  border-left: 1px solid #dddddd;
   width: 100%;
   box-sizing: border-box;
 }
@@ -77,6 +109,16 @@
   padding: 0;
   box-sizing: border-box;
   color: #333333;
+}
+
+.p-body thead,
+.p-body>thead>tr,
+.p-body>thead th {
+  border: none;
+  border-collapse: collapse;
+  font-size: 0;
+  line-height: 0;
+  padding: 0;
 }
 
 .p-body tr:hover {
